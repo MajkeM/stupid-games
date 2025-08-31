@@ -14,7 +14,7 @@ const games = [
   {
     name: "Stupidiest Reaction Test",
     path: "/games/reaction",
-    main: "main game: do 4000 points to complete",
+    main: "main game: do 2222 points to complete",
     desc: "Are you quick enough?",
     requirements: 1,
     emoji: "⚡",

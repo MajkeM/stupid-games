@@ -8,11 +8,11 @@ const GROUND_LEVEL =70;
 const GRAVITY = 0.2; 
 const JUMP_FORCE = -3.0; 
 const PLAYER_SPEED = 0.6;
-const GAME_DURATION = 0;
+const GAME_DURATION = 60;
 
-const RAIN_SPAWN_CHANCE = 0.03;
+const RAIN_SPAWN_CHANCE = 0.005;
 const CAR_BASE_SPEED_MIN = 0.3;
-const CAR_BASE_SPEED_MAX = 0.7;
+const CAR_BASE_SPEED_MAX = 0.4;
 
 const random = (min, max) => Math.random() * (max - min) + min;
 
@@ -46,7 +46,7 @@ export default function Boss1({ emojis, moveEmojis, turnOnEndGame, turnWon }) {
   const [gameState, setGameState] = useState("pending");
 
     turnOnEndGame();
-
+    
 
   useEffect(() => {
     const center = { top: 49, left: 48 };
@@ -123,6 +123,9 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
   const [projectilesState, setProjectilesState] = useState([]);
   const [explosionsState, setExplosionsState] = useState([]);
 
+  // --- PŘIDÁNO: Ref pro audio element ---
+  const musicRef = useRef(null);
+
   const player = useRef(playerState);
   const rain = useRef([]);
   const cars = useRef([]);
@@ -134,6 +137,8 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
   const keysPressed = useRef({});
   const gameLoopRef = useRef();
   const gameTimeRef = useRef(0);
+
+
 
   const restartGame = () => {
     player.current = { x: 50, y: GROUND_LEVEL - PLAYER_HEIGHT, yVelocity: 0 };
@@ -156,10 +161,11 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
   };
 
   const gameLoop = useCallback(() => {
+    // ... tělo funkce gameLoop zůstává beze změny ...
     if (gameState !== "playing") return;
     gameTimeRef.current += 1 / 60;
     const elapsedTime = gameTimeRef.current;
-    const difficulty = Math.min(1 + elapsedTime / 30, 4.5);
+    const difficulty = Math.min(1 + elapsedTime / 75, 4.5);
 
     // --- Pohyb hráče ---
     let { x, y, yVelocity } = player.current;
@@ -183,10 +189,10 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
           id: Date.now(),
           x: random(0, 98),
           y: -10,
-          speed: random(0.5, 1.2) * difficulty,
+          speed: random(0.3, 0.5) * difficulty,
         });
 
-      if (Math.random() < 0.005 * difficulty) {
+      if (Math.random() < 0.0005 * difficulty) {
         const direction = Math.random() > 0.5 ? 1 : -1;
         const carSize = 16;
         cars.current.push({
@@ -201,12 +207,12 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
         });
       }
 
-      if (Math.random() < 0.002 * difficulty)
+      if (Math.random() < 0.0008 * difficulty)
         bombs.current.push({
           id: Date.now(),
           x: random(5, 95),
           y: -10,
-          speed: random(0.3, 0.6) * difficulty,
+          speed: random(0.3, 0.4) * difficulty,
         });
     }
 
@@ -229,7 +235,7 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
           size: 10,
           opacity: 1,
         });
-        const projSpeed = 1.0 * difficulty;
+        const projSpeed = 0.5 * difficulty;
         projectiles.current.push(
           {
             id: bomb.id + 1,
@@ -272,8 +278,6 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
       height: PLAYER_HEIGHT,
     };
 
-  
-
     const checkCollision = (obj, hitbox) => {
          const offsetX = hitbox.offsetX || 0;
           const offsetY = hitbox.offsetY || 0;
@@ -307,6 +311,7 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
   }, [gameState, setGameState]);
 
   useEffect(() => {
+    // ... timer useEffect ...
     if (gameState === "playing") {
       const i = setInterval(() => {
         setTimer((t) => {
@@ -323,6 +328,7 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
   }, [gameState, setGameState]);
 
   useEffect(() => {
+    // ... ovládání useEffect ...
     const kD = (e) => {
       keysPressed.current[e.key.toLowerCase()] = true;
     };
@@ -338,6 +344,7 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
   }, []);
 
   useEffect(() => {
+    // ... gameLoop useEffect ...
     if (gameState === "playing") {
       gameLoopRef.current = requestAnimationFrame(gameLoop);
     }
@@ -345,6 +352,20 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
     };
   }, [gameState, gameLoop]);
+
+  // --- PŘIDÁNO: useEffect pro ovládání hudby ---
+  useEffect(() => {
+    const musicElement = musicRef.current;
+    if (!musicElement) return;
+
+    if (gameState === 'playing') {
+        musicElement.volume = 0.2; // Nastav hlasitost
+        musicElement.currentTime = 0; // Začni od začátku
+        musicElement.play();
+    } else {
+        musicElement.pause(); // Zastav hudbu, když hra neběží
+    }
+  }, [gameState]); // Spustí se pokaždé, když se změní gameState
 
   const backgroundBrightness =
     gameState === "playing"
@@ -354,47 +375,40 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
     const getReward = () => {
         turnWon();
     }
+
   return (
     <div
       className="game-container"
       style={{ filter: `brightness(${backgroundBrightness})` }}
     >
       <div className="game-area">
-        {/* Hráč */}
+        {/* Hráč, déšť, auta atd. */}
         <GameObject emoji="🤓" x={playerState.x} y={playerState.y} size={5} zIndex={50} />
-       
 
-        {/* Déšť */}
         {rainState.map((r) => (
           <React.Fragment key={r.id}>
             <GameObject emoji="💧" x={r.x} y={r.y} size={3.5} />
           </React.Fragment>
         ))}
 
-        {/* Auta */}
         {carsState.map((c) => (
           <React.Fragment key={c.id}>
             <GameObject emoji={c.emoji} x={c.x} y={c.y} size={16} zIndex={2} />
-
           </React.Fragment>
         ))}
 
-        {/* Bomby */}
         {bombsState.map((b) => (
           <React.Fragment key={b.id}>
             <GameObject emoji="💣" x={b.x} y={b.y} size={5} rotation={b.y * 5} />
-
           </React.Fragment>
         ))}
 
-        {/* Projektily */}
         {projectilesState.map((p) => (
           <React.Fragment key={p.id}>
             <GameObject emoji="⚡" x={p.x} y={p.y} size={5.5} zIndex={4} />
           </React.Fragment>
         ))}
 
-        {/* Exploze */}
         {explosionsState.map((e) => (
           <GameObject
             key={e.id}
@@ -413,11 +427,16 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
       {gameState !== "playing" && (
         <div className={(gameState === "lost" ? "lost" : "won")}>
           <h1>{gameState === "lost" ? "YOU..DIED..AGAIN" :  "YOU HAVE MUST BE THE STUPIDIEST PERSON"}</h1>
-          <button onClick={getReward}>
-            {gameState === "lost" ? "Please suffer again (why?)" : "Claim your reward (dopamine hit)" }
+            (gameState === "lost" ? <p>Time left: {timer}</p>)
+          <button onClick={(gameState === "won" ? getReward : restartGame)}>
+            {(gameState === "lost" ? "Please suffer again (why?)" : "Claim your reward (dopamine hit)")}
           </button>
         </div>
       )}
+
+      {/* --- PŘIDÁNO: Audio element pro hudbu --- */}
+      {/* Nezapomeň změnit cestu k souboru, pokud je jiná! */}
+      <audio ref={musicRef} src="/sounds/bossFightMusic.mp3" loop preload="auto" />
     </div>
   );
 }

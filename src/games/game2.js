@@ -226,7 +226,7 @@ export default function QuestionableSanityTest({addPoint}) {
           <h3>The test is complete.</h3>
           <p className="final-score">Final Score: {score}</p>
           <p className="final-message">My diagnosis: "{getGameOverMessage()}"</p>
-            {!pointsAdded && score >= 4000 && (
+            {!pointsAdded && score >= 2222 && (
                 <>
                 <p style={{ color: "lightgreen", fontWeight: "bold" }}>You completed the main game! +1 point</p>
                 {setPointsAdded(true)}
