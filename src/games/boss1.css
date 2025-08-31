@@ -1,0 +1,69 @@
+/* ... styly pro intro s bossem zůstávají stejné ... */
+.boss-intro-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 80vh; color: white; text-align: center; }
+.boss-phrase { font-size: 2.5rem; color: #ff4d4d; text-shadow: 0 0 10px #ff0000; }
+.boss { font-size: 15rem; animation: boss-throb 2s infinite; }
+@keyframes boss-throb { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+
+/* --- Styly pro hlavní hru --- */
+
+/* ZMĚNA: Nové dynamické pozadí */
+@keyframes hellishSky {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.game-container {
+    width: 100%;
+    height: 85vh;
+    /* ZMĚNA: Nahrazeno novým pozadím */
+    background: radial-gradient(ellipse at bottom, #ff7e5f, #feb47b, #1a0000 70%);
+    background-size: 400% 400%;
+    animation: hellishSky 30s ease infinite;
+    overflow: hidden;
+    position: relative;
+    transition: filter 1s ease-in-out;
+    border-bottom: 3px solid #ff7e5f; /* Linka pro lepší oddělení */
+}
+
+/* ZMĚNA: Přidána vizuální zem */
+.game-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh; /* 100vh - 85vh (GROUND_LEVEL) */
+    background-color: #1a0000;
+    z-index: 0;
+    box-shadow: inset 0 5px 15px -5px #ff7e5f; /* Efekt "žhavé" hrany */
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hud { /* ... zbytek CSS beze změny ... */
+    position: absolute; top: 20px; left: 20px; color: white; font-size: 2rem; font-weight: bold; font-family: 'Courier New', Courier, monospace; text-shadow: 2px 2px 4px black; z-index: 100;
+}
+.lost {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200;
+}
+.lost h1 { font-size: 6rem; color: white; text-shadow: 0 0 20px #ffc107; margin-bottom: 20px; }
+.lost button {
+    font-size: 2rem; padding: 15px 30px; background-color: #ffc107; border: 3px solid #ff8f00; color: #4e342e; cursor: pointer; border-radius: 10px; font-weight: bold; transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.lost button:hover { transform: scale(1.1); background-color: #ffd54f; }
+
+
+.won {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200;
+}
+.won h1 {text-align: center; font-size: 6rem; color: rgb(255, 255, 255); text-shadow: 0 0 20px #02f316; margin-bottom: 20px; }
+.won button {
+    font-size: 2rem; padding: 15px 30px; background-color: #baffc4; border: 3px solid #004f17; color: #4e342e; cursor: pointer; border-radius: 10px; font-weight: bold; transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.won button:hover { transform: scale(1.1); background-color: #ffd54f; }

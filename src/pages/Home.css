@@ -1,0 +1,75 @@
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Takes up most of the screen height, leaving space for navbar */
+  padding: 20px;
+  text-align: center;
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.hero-content {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px;
+  border-radius: 25px;
+  border: 2px solid #a855f7; /* Purple border from your theme */
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); /* Purple glow */
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  font-weight: 900;
+}
+
+/* This creates the cool gradient text effect for "Stupid Games" */
+.hero-content h1 span {
+  background: linear-gradient(135deg, #3b82f6, #a855f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #d1d5db; /* Light gray for readability */
+  margin-bottom: 30px;
+}
+
+.subtitle-emoji {
+  display: inline-block;
+  animation: wobble 2s infinite;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 15px 35px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #3b82f6, #a855f7); /* Blue to purple gradient */
+  color: white;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cta-btn:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 0 25px #fff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  75% { transform: rotate(-15deg); }
+}

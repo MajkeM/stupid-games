@@ -1,0 +1,83 @@
+.emoji-game {
+  text-align: center;
+  color: white;
+  font-family: "Comic Sans MS", cursive;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.game-area {
+  position: relative;
+  width: 80%;
+  height: 60vh;
+  margin: 0 auto;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.emoji {
+  position: absolute;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  animation: float 2s linear forwards;
+}
+
+.emoji.good {
+  filter: drop-shadow(0 0 6px #3b82f6);
+}
+
+.emoji.bad {
+  filter: drop-shadow(0 0 6px #ef4444);
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-30px); opacity: 0.7; }
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  animation: fadeOut 0.8s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+  100% { opacity: 0; transform: scale(1.5) translate(-50%, -50%); }
+}
+
+.game-over {
+  margin-top: 15vh;
+  background-color: #1e1e8f;
+  color: #fff;
+  padding: 10vh 0;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+
+}
+
+.play-again-btn {
+  background: #ffea00;
+  color: #222;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 4px 4px 0px #1e1e8f;
+}
