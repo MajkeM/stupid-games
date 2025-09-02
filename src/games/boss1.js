@@ -5,9 +5,9 @@ import "./boss1.css";
 const PLAYER_WIDTH = 3; 
 const PLAYER_HEIGHT = 5;
 const GROUND_LEVEL =70; 
-const GRAVITY = 0.13; 
-const JUMP_FORCE = -3.0; 
-const PLAYER_SPEED = 0.4;
+const GRAVITY = 0.17; 
+const JUMP_FORCE = -2.0; 
+const PLAYER_SPEED = 0.555;
 const GAME_DURATION = 60;
 
 const RAIN_SPAWN_CHANCE = 0.005;
