@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/stupid-games/static/css/main.9a6ef8fa.css",
-    "main.js": "/stupid-games/static/js/main.243663e2.js",
+    "main.js": "/stupid-games/static/js/main.cb791938.js",
     "static/js/453.1d7a65a1.chunk.js": "/stupid-games/static/js/453.1d7a65a1.chunk.js",
     "static/media/stupid-games-logo.png": "/stupid-games/static/media/stupid-games-logo.6c2710e6440fd0ad3541.png",
     "static/media/logo.svg": "/stupid-games/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/stupid-games/index.html",
     "main.9a6ef8fa.css.map": "/stupid-games/static/css/main.9a6ef8fa.css.map",
-    "main.243663e2.js.map": "/stupid-games/static/js/main.243663e2.js.map",
+    "main.cb791938.js.map": "/stupid-games/static/js/main.cb791938.js.map",
     "453.1d7a65a1.chunk.js.map": "/stupid-games/static/js/453.1d7a65a1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9a6ef8fa.css",
-    "static/js/main.243663e2.js"
+    "static/js/main.cb791938.js"
   ]
 }
