@@ -35,7 +35,7 @@ function getRandomEmojis() {
 }
 
 function App() {
-  const [points, setPoints] = useState(15);
+  const [points, setPoints] = useState(0);
   const [emojis, setEmojis] = useState(getRandomEmojis());
   const [endGame, setEndGame] = useState(false);
   const [won, setWon] = useState(false);
@@ -117,7 +117,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/games" element={<Games endGame={endGame} won={won} points={points} />} />
         <Route path="/games/emoji" element={<Game1 addPoint={addPoint} />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<About addPoint={addPoint}/>} />
          <Route path="/games/reaction" element={<Game2 addPoint={addPoint} />} />
          <Route path="/games/space-goat" element={<Game3 addPoint={addPoint} />} />
          <Route path="/games/boss1" element={<Boss1 turnWon={turnWon} turnOnEndGame={turnOnEndGame} moveEmojis={moveEmojis} emojis={emojis} />} />

@@ -5,9 +5,9 @@ import "./boss1.css";
 const PLAYER_WIDTH = 3; 
 const PLAYER_HEIGHT = 5;
 const GROUND_LEVEL =70; 
-const GRAVITY = 0.2; 
+const GRAVITY = 0.13; 
 const JUMP_FORCE = -3.0; 
-const PLAYER_SPEED = 0.6;
+const PLAYER_SPEED = 0.4;
 const GAME_DURATION = 60;
 
 const RAIN_SPAWN_CHANCE = 0.005;
@@ -165,7 +165,7 @@ function CupheadGame({ gameState, setGameState, turnWon}) {
     if (gameState !== "playing") return;
     gameTimeRef.current += 1 / 60;
     const elapsedTime = gameTimeRef.current;
-    const difficulty = Math.min(1 + elapsedTime / 75, 4.5);
+    const difficulty = Math.min(1 + elapsedTime / 50, 4.5);
 
     // --- Pohyb hráče ---
     let { x, y, yVelocity } = player.current;
