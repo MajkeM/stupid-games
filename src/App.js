@@ -35,7 +35,7 @@ function getRandomEmojis() {
 }
 
 function App() {
-  const [points, setPoints] = useState(0);
+  const [points, setPoints] = useState(15);
   const [emojis, setEmojis] = useState(getRandomEmojis());
   const [endGame, setEndGame] = useState(false);
   const [won, setWon] = useState(false);
