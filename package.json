@@ -1,6 +1,6 @@
 {
-  "homepage": "https://majkem.github.io/stupid-games",
-  "name": "crazy-games",
+  "homepage": "https://MajkeM.github.io/stupid-games",
+  "name": "stupid-games",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
