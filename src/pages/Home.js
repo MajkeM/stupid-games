@@ -17,7 +17,7 @@ export default function Home() {
           Let's Get Stupid
         </Link>
 
-        <p style={{ color: "red", fontWeight: "bold" }}>we are still working on this game, its shity but it suposed to be. Just wanted to train next.js with this. :-|</p>
+        <p style={{ color: "red", fontWeight: "bold" }}>we are still working on this game, its shity but it suposed to be. Just wanted to train react.js with this. :-|</p>
       </div>
     </div>
   );
