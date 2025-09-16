@@ -16,6 +16,8 @@ export default function Home() {
         <Link to="/games" className="cta-btn">
           Let's Get Stupid
         </Link>
+
+        <p style={{ color: "red", fontWeight: "bold" }}>we are still working on this game, its shity but it suposed to be. Just wanted to train next.js with this. :-|</p>
       </div>
     </div>
   );
